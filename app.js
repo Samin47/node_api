@@ -44,9 +44,15 @@ const mysql = require("mysql2");
 
 // create the mysql connection to database
 const connection = mysql.createConnection({
+<<<<<<< HEAD
   host: "192.168.247.159",
   user: "root",
   password: "Nopass!234",
+=======
+  host: "",
+  user: "root",
+  password: "",
+>>>>>>> babdbb3ef90d7fc2a43ef64e798f8c1a3ca16f60
   database: "node_samin",
 });
 
@@ -140,6 +146,7 @@ app.post("/api/create-order", fileType, function (req, res) {
   let status = req.body.status;
   let size = req.body.size;
   let color = req.body.color;
+<<<<<<< HEAD
   let product_id = req.body.product_id;
 
   // if (!name || name == "") {
@@ -162,6 +169,29 @@ app.post("/api/create-order", fileType, function (req, res) {
   //     message: "Customer's address Blank.",
   //   });
   // }
+=======
+
+  if (!name || name == "") {
+    return res.send(400, {
+      status: 400,
+      message: "Customer Name Blank.",
+    });
+  }
+
+  if (!phone || phone == "") {
+    return res.send(400, {
+      status: 400,
+      message: "Customer mobile no blank.",
+    });
+  }
+
+  if (!address || address == "") {
+    return res.send(400, {
+      status: 400,
+      message: "Customer's address Blank.",
+    });
+  }
+>>>>>>> babdbb3ef90d7fc2a43ef64e798f8c1a3ca16f60
 
   if (!price || price == "") {
     return res.send(400, {
@@ -183,7 +213,10 @@ app.post("/api/create-order", fileType, function (req, res) {
     product_name: product_name,
     status: 'pending',
     color: color,
+<<<<<<< HEAD
     product_id: product_id,
+=======
+>>>>>>> babdbb3ef90d7fc2a43ef64e798f8c1a3ca16f60
     created_at: datetime,
     updated_at: datetime,
   };
