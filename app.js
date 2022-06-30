@@ -44,15 +44,9 @@ const mysql = require("mysql2");
 
 // create the mysql connection to database
 const connection = mysql.createConnection({
-<<<<<<< HEAD
   host: "192.168.247.159",
   user: "root",
   password: "Nopass!234",
-=======
-  host: "",
-  user: "root",
-  password: "",
->>>>>>> babdbb3ef90d7fc2a43ef64e798f8c1a3ca16f60
   database: "node_samin",
 });
 
@@ -66,6 +60,8 @@ app.post("/api/product-add", fileType, function (req, res) {
   let product_price = req.body.product_price;
   let product_brand = req.body.product_brand;
   let product_size = req.body.product_size;
+  let color = req.body.color;
+  let quantity = req.body.quantity;
 
   if (!product_name || product_name == "") {
     return res.send(400, {
@@ -88,27 +84,19 @@ app.post("/api/product-add", fileType, function (req, res) {
     });
   }
 
-  if (!product_size || product_size == "") {
-    return res.send(400, {
-      status: 400,
-      message: "Product Size Blank.",
-    });
-  }
 
-  //   console.log(req.file); // get full file info
-  //   console.log(req.file.path);
-  //   console.log(req.file.filename);
-  //   console.log(req.file.originalname);
-  //   return false;
+
 
   var datetime = new Date();
-
+  
   var products = {
     product_name: product_name,
     product_image: "uploads/" + req.file.filename,
     product_price: product_price,
     product_brand: product_brand,
     product_size: product_size,
+    color: color,
+    quantity: quantity,
     created_at: datetime,
     updated_at: datetime,
   };
@@ -131,8 +119,6 @@ app.post("/api/product-add", fileType, function (req, res) {
     }
   );
 
-  // close the database connection
-  // connection.end();
 });
 
 
@@ -146,52 +132,8 @@ app.post("/api/create-order", fileType, function (req, res) {
   let status = req.body.status;
   let size = req.body.size;
   let color = req.body.color;
-<<<<<<< HEAD
   let product_id = req.body.product_id;
 
-  // if (!name || name == "") {
-  //   return res.send(400, {
-  //     status: 400,
-  //     message: "Customer Name Blank.",
-  //   });
-  // }
-
-  // if (!phone || phone == "") {
-  //   return res.send(400, {
-  //     status: 400,
-  //     message: "Customer mobile no blank.",
-  //   });
-  // }
-
-  // if (!address || address == "") {
-  //   return res.send(400, {
-  //     status: 400,
-  //     message: "Customer's address Blank.",
-  //   });
-  // }
-=======
-
-  if (!name || name == "") {
-    return res.send(400, {
-      status: 400,
-      message: "Customer Name Blank.",
-    });
-  }
-
-  if (!phone || phone == "") {
-    return res.send(400, {
-      status: 400,
-      message: "Customer mobile no blank.",
-    });
-  }
-
-  if (!address || address == "") {
-    return res.send(400, {
-      status: 400,
-      message: "Customer's address Blank.",
-    });
-  }
->>>>>>> babdbb3ef90d7fc2a43ef64e798f8c1a3ca16f60
 
   if (!price || price == "") {
     return res.send(400, {
@@ -213,10 +155,7 @@ app.post("/api/create-order", fileType, function (req, res) {
     product_name: product_name,
     status: 'pending',
     color: color,
-<<<<<<< HEAD
     product_id: product_id,
-=======
->>>>>>> babdbb3ef90d7fc2a43ef64e798f8c1a3ca16f60
     created_at: datetime,
     updated_at: datetime,
   };
@@ -225,7 +164,7 @@ app.post("/api/create-order", fileType, function (req, res) {
     "INSERT INTO orders SET ?",
     orders,
     function (err, results) {
-      // Neat!
+    
       if (err) {
         throw err;
       } else {
@@ -239,8 +178,6 @@ app.post("/api/create-order", fileType, function (req, res) {
     }
   );
 
-  // close the database connection
-  // connection.end();
 });
 
 
@@ -249,11 +186,11 @@ app.get("/api/order-details/:id", fileType, function (req, res) {
   let order_id = req.params.id;
   let query = connection.query("SELECT * FROM orders WHERE id = ?",order_id,
     function (err, results) {
-      // Neat!
+      
       if (err) {
         throw err;
       } else {
-        // if (results.affectedRows > 0) {
+        
           res.send({
             status: "success",
             message: "Order details view.",
@@ -276,7 +213,7 @@ app.get("/api/product-details/:id", fileType, function (req, res) {
       if (err) {
         throw err;
       } else {
-        // if (results.affectedRows > 0) {
+        
           res.send({
             status: "success",
             message: "Product details view.",
